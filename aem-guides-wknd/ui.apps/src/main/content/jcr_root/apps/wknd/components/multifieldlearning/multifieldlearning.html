@@ -1,0 +1,9 @@
+<h1>Multifield Learning</h1>
+
+<div data-sly-use.model="com.adobe.aem.guides.wknd.core.models.MultiFieldLearningModel">
+    <p>${model.authorname}</p>
+    <p>${model.books}</p>
+    <ul data-sly-list.item="${model.books}">
+        <li>${item}</li>
+    </ul>
+</div>
