@@ -29,7 +29,7 @@ public class AddCountryNameInThePage implements WorkflowProcess {
         Session jrcSession = session.adaptTo(Session.class);
         try {
             Node jcrNode = jrcSession.getNode(payload + "/jcr:content");
-            jcrNode.setProperty("country", processArgs);
+            jcrNode.setProperty("country", processArgs + Math.random());
         } catch (RepositoryException e) {
             throw new RuntimeException(e);
         }

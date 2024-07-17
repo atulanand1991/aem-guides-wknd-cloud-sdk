@@ -36,8 +36,8 @@ public class ExecuteWorkflowServlet extends SlingSafeMethodsServlet {
     @Override
     protected void doGet(final SlingHttpServletRequest request, final SlingHttpServletResponse response) throws ServletException, IOException {
 
-        ResourceResolver resourceResolver = wkndHelper.getResourceResolver();
-        //ResourceResolver resourceResolver = request.getResourceResolver();
+        //ResourceResolver resourceResolver = wkndHelper.getResourceResolver();
+        ResourceResolver resourceResolver = request.getResourceResolver();
         String payload = request.getRequestParameter("page").toString();
 
         try {
