@@ -24,6 +24,7 @@ public class ResourceChangeListenerHandling implements ResourceChangeListener {
     @Override
     public void onChange(List<ResourceChange> changes) {
         for (ResourceChange rc : changes) {
+            LOGGER.info(">>>>>ResourceChangeListenerHandling>>>>");
             LOGGER.info("\n Event : {}, Resource : {}", rc.getType(), rc.getPath());
         }
     }
