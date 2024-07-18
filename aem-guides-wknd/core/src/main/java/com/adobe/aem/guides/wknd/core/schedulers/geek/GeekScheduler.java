@@ -40,6 +40,10 @@ public class GeekScheduler implements Runnable {
         ScheduleOptions scheduleOptions = scheduler.EXPR(config.cronExpression());
         scheduleOptions.name(String.valueOf(scheduleId));
         scheduleOptions.canRunConcurrently(false);
+
+        ScheduleOptions scheduleOptionsNow = scheduler.NOW(2,5); //period in seconds
+        //ScheduleOptions scheduleOptionsNow = scheduler.NOW();
+
         scheduler.schedule(this, scheduleOptions);
         LOGGER.info("\n -----------Geek Schedule added-----------");
     }
