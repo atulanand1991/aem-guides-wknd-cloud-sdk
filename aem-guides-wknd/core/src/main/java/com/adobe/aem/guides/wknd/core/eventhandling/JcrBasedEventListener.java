@@ -23,7 +23,7 @@ public class JcrBasedEventListener implements EventListener {
 
     @Activate
     public void activate() throws RepositoryException {
-        String[] nodetypes={"cq:PageContent"};
+        String[] nodeTypes={"cq:PageContent"};
         session = slingRepository.loginService("wkndSystemUser", null);
         session.getWorkspace().getObservationManager().addEventListener(
                 this,
@@ -31,7 +31,7 @@ public class JcrBasedEventListener implements EventListener {
                 "/content/wknd/us/en/itc-infotech",
                 true,
                 null,
-                nodetypes,
+                nodeTypes,
                 false);
     }
 
