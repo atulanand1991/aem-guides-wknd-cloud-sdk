@@ -28,7 +28,8 @@ public class GeekScheduler implements Runnable {
 
     @Deactivate
     protected void deactivate() {
-        removeScheduler();
+        scheduler.unschedule(String.valueOf(scheduleId));
+        LOGGER.info("\n -----------Geek Schedule removed-----------");
     }
 
     @Override
@@ -48,8 +49,4 @@ public class GeekScheduler implements Runnable {
         LOGGER.info("\n -----------Geek Schedule added-----------");
     }
 
-    private void removeScheduler() {
-        scheduler.unschedule(String.valueOf(scheduleId));
-        LOGGER.info("\n -----------Geek Schedule removed-----------");
-    }
 }
