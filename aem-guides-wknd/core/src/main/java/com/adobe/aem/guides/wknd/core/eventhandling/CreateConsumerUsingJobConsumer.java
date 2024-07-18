@@ -23,6 +23,8 @@ public class CreateConsumerUsingJobConsumer implements JobConsumer {
                 String path = job.getProperty("path").toString();
                 String event = job.getProperty("event").toString();
                 LOGGER.info(">>>CreateConsumerUsingJobConsumer-END>>>");
+                //JobResult.FAILED
+                //JobResult.CANCEL
                 return JobResult.OK;
         }
 }
