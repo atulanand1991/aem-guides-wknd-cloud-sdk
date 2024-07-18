@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 @Component(service = Runnable.class, immediate = true)
 @Designate(ocd=GeekSchedulerConfiguration.class)
-public class GeekScheduler implements Runnable {
+public class GeekScheduler implements Runnable { // by implementing Runnable interface
 
     private static final Logger LOGGER = LoggerFactory.getLogger(GeekScheduler.class);
 
