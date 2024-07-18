@@ -1,0 +1,51 @@
+package com.adobe.aem.guides.wknd.core.schedulers.geek;
+
+import org.apache.sling.commons.scheduler.ScheduleOptions;
+import org.apache.sling.commons.scheduler.Scheduler;
+import org.osgi.service.component.annotations.Activate;
+import org.osgi.service.component.annotations.Component;
+import org.osgi.service.component.annotations.Deactivate;
+import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.metatype.annotations.Designate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+@Component(service = Runnable.class, immediate = true)
+@Designate(ocd=GeekSchedulerConfiguration.class)
+public class GeekScheduler implements Runnable {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(GeekScheduler.class);
+
+    @Reference
+    private Scheduler scheduler;
+
+    private int scheduleId;
+    @Activate
+    protected void activate(GeekSchedulerConfiguration config) {
+        scheduleId = config.schedulerName().hashCode();
+        addScheduler(config);
+    }
+
+    @Deactivate
+    protected void deactivate() {
+        removeScheduler();
+    }
+
+    @Override
+    public void run() {
+        LOGGER.info("\n -----------Geek Schedule Run method executing-----------");
+    }
+
+    private void addScheduler(GeekSchedulerConfiguration config) {
+        ScheduleOptions scheduleOptions = scheduler.EXPR(config.cronExpression());
+        scheduleOptions.name(String.valueOf(scheduleId));
+        scheduleOptions.canRunConcurrently(false);
+        scheduler.schedule(this, scheduleOptions);
+        LOGGER.info("\n -----------Geek Schedule added-----------");
+    }
+
+    private void removeScheduler() {
+        scheduler.unschedule(String.valueOf(scheduleId));
+        LOGGER.info("\n -----------Geek Schedule removed-----------");
+    }
+}
