@@ -41,12 +41,14 @@ public class GeekSchedulerJob implements Job { // by implementing Job interface
         Map<String, Serializable> inMap = new HashMap<>();
         inMap.put("country", "India");
         inMap.put("url", "www.in.com");
+        in.config(inMap);
         scheduler.schedule(this, in);
 
         ScheduleOptions de = scheduler.EXPR("0 37 16 1/1 * ? *");
         Map<String, Serializable> deMap = new HashMap<>();
         deMap.put("country", "Germany");
         deMap.put("url", "www.de.com");
+        de.config(deMap);
         scheduler.schedule(this, de);
     }
     @Deactivate
