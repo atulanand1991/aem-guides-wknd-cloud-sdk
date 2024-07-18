@@ -26,17 +26,6 @@ public class GeekScheduler implements Runnable {
         addScheduler(config);
     }
 
-    @Deactivate
-    protected void deactivate() {
-        scheduler.unschedule(String.valueOf(scheduleId));
-        LOGGER.info("\n -----------Geek Schedule removed-----------");
-    }
-
-    @Override
-    public void run() {
-        LOGGER.info("\n -----------Geek Schedule Run method executing-----------");
-    }
-
     private void addScheduler(GeekSchedulerConfiguration config) {
         ScheduleOptions scheduleOptions = scheduler.EXPR(config.cronExpression());
         scheduleOptions.name(String.valueOf(scheduleId));
@@ -48,5 +37,14 @@ public class GeekScheduler implements Runnable {
         scheduler.schedule(this, scheduleOptions);
         LOGGER.info("\n -----------Geek Schedule added-----------");
     }
+    @Deactivate
+    protected void deactivate() {
+        scheduler.unschedule(String.valueOf(scheduleId));
+        LOGGER.info("\n -----------Geek Schedule removed-----------");
+    }
 
+    @Override
+    public void run() {
+        LOGGER.info("\n -----------Geek Schedule Run method executing-----------");
+    }
 }
