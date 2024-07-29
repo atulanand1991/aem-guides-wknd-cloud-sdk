@@ -1,6 +1,10 @@
 
 
+/0201 { /type "deny" / url "*"}
 
+/0202 { /type "allow" / url "/content/*"}
+
+/0203 { /type "allow" / method "GET"  /url "/etc.clientlibs/*"}
 
 
 
