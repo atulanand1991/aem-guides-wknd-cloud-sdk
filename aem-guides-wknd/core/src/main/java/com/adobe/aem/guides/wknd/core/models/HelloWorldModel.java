@@ -64,7 +64,8 @@ public class HelloWorldModel {
             + "Resource type is: " + resourceType + "\n"
             + "Current page is:  " + currentPagePath + "\n";
 
-        address = assignmentTwo.getAddressFromJcr();
+        //address = assignmentTwo.getAddressFromJcr();
+        address = "Dummy Address";
     }
 
     public String getMessage() {
