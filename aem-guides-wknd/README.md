@@ -46,6 +46,12 @@ Or to deploy only a single content package, run in the sub-module directory (i.e
 
     mvn clean install -PautoInstallPackage
 
+### Docker
+
+    For Mac at dispatcher-sdk-2.0.219
+
+    ./bin/docker_run_hot_reload.sh ~/Work/itcTraining/wspaceGithub/aem-guides-wknd-cloud-sdk/aem-guides-wknd/dispatcher/src host.docker.internal:4503 8080
+
 ## Testing
 
 There are three levels of testing contained in the project:
