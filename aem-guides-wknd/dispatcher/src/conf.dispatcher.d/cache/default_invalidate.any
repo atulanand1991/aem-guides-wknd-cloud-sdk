@@ -7,10 +7,12 @@
 
 # Contains the AEM backend that is allowed to invalidate the cache on the dispatcher
 /0001 {
-	/type "deny"
+	/type "allow"
 	/glob "*.*.*.*"
 }
 /0002 {
 	/type "allow"
 	/glob "${AEM_IP}"
 }
+
+
