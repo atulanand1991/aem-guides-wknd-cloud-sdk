@@ -47,6 +47,7 @@ public class FirstCustomWorkflow implements WorkflowProcess {
                     }
                 }
                 MetaDataMap wfd = workItem.getWorkflow().getWorkflowData().getMetaDataMap();
+                wfd.put("mykey", "My Step Value");
             }
         } catch (PathNotFoundException e) {
             throw new RuntimeException(e);
