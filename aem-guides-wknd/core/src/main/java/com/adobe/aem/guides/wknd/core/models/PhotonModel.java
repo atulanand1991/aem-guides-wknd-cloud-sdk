@@ -26,6 +26,7 @@ import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
+import org.apache.sling.models.annotations.Via;
 import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
 import org.apache.sling.models.annotations.injectorspecific.OSGiService;
 import org.apache.sling.models.annotations.injectorspecific.SlingObject;
@@ -39,6 +40,13 @@ import java.util.Optional;
 @Model(adaptables = SlingHttpServletRequest.class, defaultInjectionStrategy = DefaultInjectionStrategy.OPTIONAL)
 public class PhotonModel {
 
+    @ValueMapValue
+    @Via("resource")
+    private String fname;
+
+    @ValueMapValue
+    @Via("resource")
+    private String lname;
 
     private String defaultName;
 
@@ -46,6 +54,14 @@ public class PhotonModel {
     @PostConstruct
     protected void init() {
         defaultName = "John Deo";
+    }
+
+    public String getFname() {
+        return fname;
+    }
+
+    public String getLname() {
+        return lname;
     }
 
     public String getDefaultName() {
