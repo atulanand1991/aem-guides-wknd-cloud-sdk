@@ -27,10 +27,7 @@ import org.apache.sling.models.annotations.Default;
 import org.apache.sling.models.annotations.DefaultInjectionStrategy;
 import org.apache.sling.models.annotations.Model;
 import org.apache.sling.models.annotations.Via;
-import org.apache.sling.models.annotations.injectorspecific.InjectionStrategy;
-import org.apache.sling.models.annotations.injectorspecific.OSGiService;
-import org.apache.sling.models.annotations.injectorspecific.SlingObject;
-import org.apache.sling.models.annotations.injectorspecific.ValueMapValue;
+import org.apache.sling.models.annotations.injectorspecific.*;
 
 import com.day.cq.wcm.api.Page;
 import com.day.cq.wcm.api.PageManager;
@@ -48,12 +45,15 @@ public class PhotonModel {
     @Via("resource")
     private String lname;
 
+    @ScriptVariable
+    private Page currentPage;
+
     private String defaultName;
 
 
     @PostConstruct
     protected void init() {
-        defaultName = "John Deo";
+        defaultName = currentPage.getPath();
     }
 
     public String getFname() {
