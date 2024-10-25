@@ -24,7 +24,7 @@ public class ChildPagesListModel {
     @SlingObject
     private ResourceResolver resourceResolver;
 
-    private List<String> childPagesList = new ArrayList<String>();
+    private List<String> childPagesList = new ArrayList<>();
     @PostConstruct
     protected void init () {
         PageManager pageManager = resourceResolver.adaptTo(PageManager.class);
