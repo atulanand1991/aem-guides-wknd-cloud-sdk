@@ -97,6 +97,34 @@ Import-Package: javax.annotation;version=0.0.0,*
         </dependency>
 
 
+        <dependency>
+            <groupId>org.xhtmlrenderer</groupId>
+            <artifactId>flying-saucer-core</artifactId>
+            <version>9.1.22</version> <!-- Check for the latest version -->
+        </dependency>
+
+        <!-- Flying Saucer PDF -->
+        <dependency>
+            <groupId>org.xhtmlrenderer</groupId>
+            <artifactId>flying-saucer-pdf</artifactId>
+            <version>9.1.22</version> <!-- Check for the latest version -->
+        </dependency>
+
+        <dependency>
+            <groupId>org.xhtmlrenderer</groupId>
+            <artifactId>flying-saucer-swt</artifactId>
+            <version>9.1.22</version>
+        </dependency>
+
+        <!-- iText PDF (necessary for Flying Saucer PDF generation) -->
+        <dependency>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itext7-core</artifactId>
+            <version>7.2.0</version>
+            <type>pom</type>
+        </dependency>
+
+
         <!-- Testing -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
