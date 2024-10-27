@@ -7,6 +7,9 @@ import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 
+import org.apache.pdfbox.pdmodel.graphics.image.PDImage;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import org.apache.pdfbox.pdmodel.graphics.image.PDInlineImage;
 import org.apache.sling.api.SlingHttpServletRequest;
 import org.apache.sling.api.SlingHttpServletResponse;
 
@@ -14,8 +17,11 @@ import org.apache.sling.api.resource.Resource;
 import org.apache.sling.api.resource.ResourceResolver;
 import org.apache.sling.api.servlets.SlingSafeMethodsServlet;
 import org.osgi.service.component.annotations.Component;
+
+import javax.imageio.ImageIO;
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
+import java.awt.image.BufferedImage;
 import java.io.*;
 
 @Component(service = { Servlet.class },
@@ -36,21 +42,38 @@ public class PdfBoxTwoZeroTwoFourServlet extends SlingSafeMethodsServlet {
             PDDocument pdfDocument = new PDDocument();
             PDPage pdfPage = new PDPage();
             pdfDocument.addPage(pdfPage);
+            PDPageContentStream contentStream = new PDPageContentStream(pdfDocument, pdfPage);
+
             float margin = 50;
             float yStart = pdfPage.getMediaBox().getHeight() - margin;
 
-            PDPageContentStream contentStream = new PDPageContentStream(pdfDocument, pdfPage);
-
+            //Setting custom Font
             String fontPath = "/content/dam/momentive/fontfolder/myFont.ttf/jcr:content/renditions/original/jcr:content";
             ResourceResolver resolver = request.getResourceResolver();
             Resource fontResource = resolver.getResource(fontPath);
             InputStream fontStream = fontResource.adaptTo(InputStream.class);
             PDType0Font font = PDType0Font.load(pdfDocument, fontStream);
 
+            //Setting images
+            String logoPath = "/content/dam/momentive/images/logo.png/jcr:content/renditions/original/jcr:content";
+            String stampPath = "/content/dam/momentive/images/stamp.png/jcr:content/renditions/original/jcr:content";
+            Resource logoResource = resolver.getResource(logoPath);
+            Resource stampResource = resolver.getResource(stampPath);
+
+            InputStream logoStream = logoResource.adaptTo(InputStream.class);
+            InputStream stampStream = stampResource.adaptTo(InputStream.class);
+
+            File logoFile = inputStreamToFile(logoStream, "logo.png");
+            PDImageXObject logo = PDImageXObject.createFromFileByContent(logoFile, pdfDocument);
+
+            //File stampFile = inputStreamToFile(logoStream, "stamp.png");
+            //PDImageXObject stamp = PDImageXObject.createFromFileByContent(stampFile, pdfDocument);
+
+
 
 
             //Row 1
-            //contentStream.drawImage(logo, margin - 30, yStart + 5, 192, 40);
+            contentStream.drawImage(logo, margin - 30, yStart + 5, 192, 40);
 
             //Row 2
             contentStream.beginText();
@@ -192,6 +215,22 @@ public class PdfBoxTwoZeroTwoFourServlet extends SlingSafeMethodsServlet {
             response.sendError(SlingHttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Error generating PDF: " + e.getMessage());
         }
 
+    }
+    public static File inputStreamToFile(InputStream inputStream, String fileName) throws IOException {
+        // Create a temporary file
+        File tempFile = File.createTempFile(fileName, null);
+        tempFile.deleteOnExit(); // Ensure the file is deleted on JVM exit
+
+        // Write the InputStream to the temporary file
+        try (FileOutputStream outputStream = new FileOutputStream(tempFile)) {
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+        }
+
+        return tempFile;
     }
 
 }
