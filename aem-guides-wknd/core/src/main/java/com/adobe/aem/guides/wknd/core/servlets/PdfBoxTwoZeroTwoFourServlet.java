@@ -66,8 +66,8 @@ public class PdfBoxTwoZeroTwoFourServlet extends SlingSafeMethodsServlet {
             File logoFile = inputStreamToFile(logoStream, "logo.png");
             PDImageXObject logo = PDImageXObject.createFromFileByContent(logoFile, pdfDocument);
 
-            //File stampFile = inputStreamToFile(logoStream, "stamp.png");
-            //PDImageXObject stamp = PDImageXObject.createFromFileByContent(stampFile, pdfDocument);
+            File stampFile = inputStreamToFile(stampStream, "stamp.png");
+            PDImageXObject stamp = PDImageXObject.createFromFileByContent(stampFile, pdfDocument);
 
 
 
@@ -116,7 +116,7 @@ public class PdfBoxTwoZeroTwoFourServlet extends SlingSafeMethodsServlet {
             contentStream.endText();
 
             //Row 5 stamp
-            //contentStream.drawImage(stamp, pdfPage.getMediaBox().getWidth() - 120, yStart - 250, 100, 100);
+            contentStream.drawImage(stamp, pdfPage.getMediaBox().getWidth() - 120, yStart - 250, 100, 100);
 
             //Table-Row-1-Column-1
             contentStream.beginText();
